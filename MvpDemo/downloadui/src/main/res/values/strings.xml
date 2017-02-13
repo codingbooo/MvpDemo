@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DownloadUi</string>
+
+    <string name="progress_info">%s$d%</string>
+</resources>
