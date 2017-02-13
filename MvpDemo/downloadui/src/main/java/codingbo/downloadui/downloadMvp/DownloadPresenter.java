@@ -32,7 +32,7 @@ public class DownloadPresenter implements DownloadContract.Presenter {
 
     @Override
     public void result(int requestCode, int resultCode, DownloadInfo info) {
-
+        addDownload(info);
     }
 
     @Override
@@ -51,6 +51,10 @@ public class DownloadPresenter implements DownloadContract.Presenter {
     }
 
     @Override
+    public void addDownload() {
+        mView.showAddDownload();
+    }
+
     public void addDownload(DownloadInfo info) {
         mRepository.addData(info);
         mRepository.downloading(info, 200, new DataSource.DownloadCallback() {

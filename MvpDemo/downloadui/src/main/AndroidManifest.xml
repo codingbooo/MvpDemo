@@ -16,6 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".download.DownloadActivity"/>
+        <activity android:name=".downloadMvp.DownloadMvpActivity"/>
+        <activity android:name=".downloadMvp.AddDownloadActivity"/>
     </application>
 
 </manifest>

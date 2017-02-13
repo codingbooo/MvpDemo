@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import codingbo.downloadui.download.DownloadActivity;
+import codingbo.downloadui.downloadMvp.DownloadMvpActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(new Intent(this, DownloadActivity.class));
 
+    }
+    public void mvp(View view) {
+
+        startActivity(new Intent(this, DownloadMvpActivity.class));
 
     }
 }

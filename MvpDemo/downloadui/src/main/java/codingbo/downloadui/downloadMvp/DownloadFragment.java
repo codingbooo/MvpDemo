@@ -2,7 +2,9 @@ package codingbo.downloadui.downloadMvp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.HandlerThread;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +15,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import codingbo.downloadui.BasePresenter;
 import codingbo.downloadui.R;
 import codingbo.downloadui.download.DownloadAdapter;
 import codingbo.downloadui.download.DownloadInfo;
@@ -32,7 +33,7 @@ public class DownloadFragment extends Fragment implements DownloadContract.View 
     public DownloadFragment() {
     }
 
-    public DownloadFragment getInstance() {
+    public static DownloadFragment getInstance() {
         return new DownloadFragment();
     }
 
@@ -50,6 +51,14 @@ public class DownloadFragment extends Fragment implements DownloadContract.View 
         View root = inflater.inflate(R.layout.downlaod_frag, container, false);
         ListView listView = (ListView) root.findViewById(R.id.ll_list);
         listView.setAdapter(mAdapter);
+
+        FloatingActionButton fab = (FloatingActionButton) getActivity().findViewById(R.id.fab_edit_task);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.addDownload();
+            }
+        });
         return root;
     }
 
@@ -68,16 +77,19 @@ public class DownloadFragment extends Fragment implements DownloadContract.View 
     }
 
     @Override
-    public void showDownload(List<DownloadInfo> info) {
-        mAdapter.setData(info);
+    public void showDownload(final List<DownloadInfo> info) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.setData(info);
+            }
+        });
     }
 
     @Override
-    public void showAddDownload(DownloadInfo info) {
-        //// TODO: 17.2.13
-//        Intent intent = new Intent(getContext(), AddDownloadActivity.class);
-//        startActivityForResult(intent, 1);
-
+    public void showAddDownload() {
+        Intent intent = new Intent(getContext(), AddDownloadActivity.class);
+        startActivityForResult(intent, 1);
     }
 
 
