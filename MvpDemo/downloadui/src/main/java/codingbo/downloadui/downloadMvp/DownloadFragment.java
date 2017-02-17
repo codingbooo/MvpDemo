@@ -99,6 +99,11 @@ public class DownloadFragment extends Fragment implements DownloadContract.View 
     }
 
     @Override
+    public boolean isActive() {
+        return isAdded();
+    }
+
+    @Override
     public void setPresenter(DownloadContract.Presenter p) {
         mPresenter = p;
     }

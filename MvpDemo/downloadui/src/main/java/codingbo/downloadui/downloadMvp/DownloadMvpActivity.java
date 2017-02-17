@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import codingbo.downloadui.R;
 
@@ -15,7 +16,7 @@ import codingbo.downloadui.R;
  */
 
 public class DownloadMvpActivity extends AppCompatActivity {
-
+    private static final String TAG = "DownloadMvpActivity";
     private DownloadPresenter mPresenter;
 
     @Override
@@ -36,8 +37,8 @@ public class DownloadMvpActivity extends AppCompatActivity {
             transaction.commit();
 
         }
-
-        mPresenter = DownloadPresenter.getInstance(DataRepository.getInstance(this), fragment);
+        Log.d(TAG, "onCreate: ");
+        mPresenter = new DownloadPresenter(DataRepository.getInstance(this), fragment);
 
     }
 }

@@ -23,13 +23,6 @@ public class DownloadPresenter implements DownloadContract.Presenter {
         mView.setPresenter(this);
     }
 
-    public static synchronized DownloadPresenter getInstance(DataRepository repository, DownloadContract.View downloadView) {
-        if (INSTANCE == null) {
-            INSTANCE = new DownloadPresenter(repository, downloadView);
-        }
-        return INSTANCE;
-    }
-
     @Override
     public void result(int requestCode, int resultCode, DownloadInfo info) {
         addDownload(info);
@@ -40,11 +33,17 @@ public class DownloadPresenter implements DownloadContract.Presenter {
         mRepository.getData(new DataSource.LoadCallback() {
             @Override
             public void success(List<DownloadInfo> info) {
+                if (mView == null || !mView.isActive()) {
+                    return;
+                }
                 mView.showDownload(info);
             }
 
             @Override
             public void failed(Exception e) {
+                if (mView == null || !mView.isActive()) {
+                    return;
+                }
                 mView.showFailed();
             }
         });

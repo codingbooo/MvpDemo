@@ -19,6 +19,8 @@ public interface DownloadContract {
         void showAddDownload();
 
         void showFailed();
+
+        boolean isActive();
     }
 
 
